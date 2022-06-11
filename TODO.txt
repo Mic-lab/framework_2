@@ -1,0 +1,8 @@
+for x and y axis -> flip and offset
+Give attributes rect and vel to Entity
+Reduce "data/scripts/config.json" repetition
+Fix globals with font databases
+Capitalize constants
+Implement button class
+
+font_database can only be accessed from the file at which it's created
