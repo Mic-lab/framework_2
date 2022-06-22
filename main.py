@@ -16,7 +16,7 @@ clock = pygame.time.Clock()
 
 button = Button(pygame.Rect(20, 130, 100, 28), 'Play', 'basic')
 
-player = Entity([100, 100], 'dark_player', offset=[9, 0])
+player = Entity([100, 100], 'dark_player', offset=[9, 0], max_vel=2)
 
 text = '''the quick brown fox jumps over the lazy dog?
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!'''

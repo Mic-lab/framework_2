@@ -3,7 +3,7 @@ from .core_functions import *
 from .config import *
 
 class Entity:
-    def __init__(self, pos, type_, offset=[0, 0], friction=0.05, vel=[0, 0], max_vel=2, action='idle', flip=[False, False]):
+    def __init__(self, pos, type_, offset=[0, 0], friction=0.06, vel=[0, 0], max_vel=None, action='idle', flip=[False, False]):
         self.pos = pos
         self.type = type_
         self.offset = offset
@@ -50,10 +50,11 @@ class Entity:
             # of the function because friction is applied to it after it  
             # has reached its max it is additioned to self.pos[axis], it  
             # is accurate since we set it to its max before that line
-            if self.vel[axis] > self.max_vel:
-                self.vel[axis] = self.max_vel
-            elif self.vel[axis] < -self.max_vel:
-                self.vel[axis] = -self.max_vel
+            if not self.max_vel is None: 
+                if self.vel[axis] > self.max_vel:
+                    self.vel[axis] = self.max_vel
+                elif self.vel[axis] < -self.max_vel:
+                    self.vel[axis] = -self.max_vel
             self.pos[axis] += self.vel[axis]
             if self.vel[axis] > 0:
                 self.vel[axis] -= self.friction
