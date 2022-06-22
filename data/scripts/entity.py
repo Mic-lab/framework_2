@@ -1,15 +1,13 @@
 from .animations import *
 from .core_functions import *
 from .config import *
+from .movable_object import MovableObject
 
-class Entity:
+class Entity(MovableObject):
     def __init__(self, pos, type_, offset=[0, 0], friction=0.06, vel=[0, 0], max_vel=None, action='idle', flip=[False, False]):
-        self.pos = pos
+        super().__init__(pos, vel, friction, max_vel)
         self.type = type_
         self.offset = offset
-        self.friction = friction
-        self.vel = vel
-        self.max_vel = max_vel
         self._action = action
         self.action = action
         self.flip = flip
@@ -44,26 +42,8 @@ class Entity:
                 
     def update(self):
         
-        # Movement ----------------------------------------------------------- #
-        for axis in range(2):
-            # NOTE: self.vel can be inaccurate at the end but when
-            # of the function because friction is applied to it after it  
-            # has reached its max it is additioned to self.pos[axis], it  
-            # is accurate since we set it to its max before that line
-            if not self.max_vel is None: 
-                if self.vel[axis] > self.max_vel:
-                    self.vel[axis] = self.max_vel
-                elif self.vel[axis] < -self.max_vel:
-                    self.vel[axis] = -self.max_vel
-            self.pos[axis] += self.vel[axis]
-            if self.vel[axis] > 0:
-                self.vel[axis] -= self.friction
-                if self.vel[axis] < 0:
-                    self.vel[axis] = 0
-            else:
-                self.vel[axis] += self.friction
-                if self.vel[axis] > 0:
-                    self.vel[axis] = 0
+        # Mouvement ---------------------------------------------------------- #
+        super().update()
         
         # Animation ---------------------------------------------------------- #
         self.game_frame += 1

@@ -2,7 +2,7 @@ class MovableObject:
     """Basic class which handles and object's movement
     NOTE: Does not handle image"""
     
-    def __init__(self, pos, vel, friction=0.06, max_vel: list=None):
+    def __init__(self, pos, vel, friction, max_vel):
         self.pos = pos
         self.friction = friction
         self.vel = vel
