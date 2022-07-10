@@ -1,3 +1,10 @@
+Particles
+- Finish base Particles
+- Finish ParticleGenerator
+- Add angle
+- Add hue shift
+- Add glow
+
 for x and y axis -> flip and offset
 Give attributes rect and vel to Entity
 Reduce "data/scripts/config.json" repetition
