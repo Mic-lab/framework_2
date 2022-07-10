@@ -8,7 +8,7 @@ from data.scripts.core_functions import *
 from data.scripts.entity import *
 from data.scripts.font_functions import *
 from data.scripts.button import *
-from data.scripts.particle import *
+from data.scripts.particle_generator import *
 from data.scripts.debug import *
 
 # Initialize ----------------------------------------------------------------- #
@@ -23,7 +23,7 @@ text = '''the quick brown fox jumps over the lazy dog?
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!'''
 text = ''
 
-particles = []
+particle_generator = ParticleGenerator(1, 1, 1, [1, 2], [0, 0], [0, -9], 0, player.frame_data['img'], 255, 10, 0.05)
 
 mouse_down = False
 right_down = False
@@ -68,6 +68,8 @@ while run:
     # Render ----------------------------------------------------------------- #
     canvas.fill((190, 200, 200))
     
+    render_wrapped_text(canvas, (mx + 10, my), text, font_database['basic'], (20, 20, 20))
+    
     if right_down:
         player.vel[0] += 0.1
         player.set_flip([False, False])
@@ -79,24 +81,11 @@ while run:
     if not(right_down) and not(left_down):
         player.action = 'idle'
     player.update()
-    render_wrapped_text(canvas, (mx + 10, my), text, font_database['basic'], (20, 20, 20))
+    
+    particle_generator.pos = [mx, my]
+    particle_generator.update_and_render(canvas, [0, 1])
+    
     # center_blit([canvas, player.frame_data['img']])
-    
-    for i in range(1):
-        particles.append(Particle(1, [1, 1], [mx,my], [0, -9], 0, player.frame_data['img'], 255, 10, 0.05))
-        
-    print(len(particles))
-    # Particle(random_change, vel_randomness, pos, vel, friction, inital_img, alpha, changed_alpha, changed_size)
-    
-    i = 0
-    while i < len(particles):
-        invisible = particles[i].update([0, 1])
-        if not invisible:
-            particles[i].render(canvas)
-            i += 1
-        else:
-            particles.pop(i)
-    
     player.render(canvas)
     button.update(mx, my, mouse_down, clicked)
     button.render(canvas)
@@ -110,6 +99,7 @@ while run:
 {player.vel = }
 {player.pos = }
 {player.flip = }
+Particles = {len(particle_generator.particles)}
 '''
     render_variables(screen, debug_text)    
 

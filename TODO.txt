@@ -1,9 +1,20 @@
 Particles
-- Finish base Particles
 - Finish ParticleGenerator
+
 - Add angle
 - Add hue shift
 - Add glow
+NOTE: 
+- Update comment in particle function 
+- Update accepted paramaters in ParticleGenerator
+
+- Add random range to particles initial position
+
+Done
+- Finish base Particles 
+
+
+--------------------------------------------------------------------------------
 
 for x and y axis -> flip and offset
 Give attributes rect and vel to Entity
