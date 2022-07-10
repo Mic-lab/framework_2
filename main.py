@@ -90,8 +90,6 @@ while run:
     button.update(mx, my, mouse_down, clicked)
     button.render(canvas)
             
-
-    
     screen.blit(pygame.transform.scale(canvas, SCREEN_SIZE), (0, 0))
     debug_text = f'''FPS = {round(clock.get_fps(), 1)}
 {SCREEN_SIZE = }
@@ -99,7 +97,6 @@ while run:
 {player.vel = }
 {player.pos = }
 {player.flip = }
-Particles = {len(particle_generator.particles)}
 '''
     render_variables(screen, debug_text)    
 

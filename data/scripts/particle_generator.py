@@ -7,7 +7,7 @@ class ParticleGenerator(MovableObject):
     def __init__(self, rate, rate_randomness, random_change, vel_randomness, pos, vel, friction, initial_img, alpha, changed_alpha, changed_size, max_vel=None, size=1, duration=None):
         self.rate = rate
         self.rate_randomness = rate_randomness
-        self.duration = None
+        self.duration = duration
         self.particles = []
         self.frame_count = 0
             
@@ -50,6 +50,15 @@ class ParticleGenerator(MovableObject):
             else:
                 particle.render(surface)
                 i += 1
+                
+        if self.duration is not None:
+            if self.duration > 1:
+                self.duration -= 1
+                return False
+            else:
+                return True
+        else:
+            return False
                                     
     def update(self, vel_change=None):
         if vel_change:
@@ -61,12 +70,21 @@ class ParticleGenerator(MovableObject):
             self.frame_count -= 1/self.rate
             self.particles.append(self.get_particle())
                 
+                
         i = 0
         while i < len(self.particles):
             particle = self.particles[i]
             invisible = particle.update(vel_change)
             if invisible:
                 self.particles.pop(i)
+            else:
+                i += 1
+                
+        if self.duration:
+            self.duration -= 1
+            return self.duration == 0
+        else:
+            return False
                 
     def render(self, surface):
         for particle in self.particles:
