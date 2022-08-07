@@ -1,20 +1,23 @@
-Particles
-- Finish ParticleGenerator
-
-- Add angle
-- Add hue shift
-- Add glow
 NOTE: 
-- Update comment in particle function 
-- Update accepted paramaters in ParticleGenerator
+- Update comment in particle function
 
-- Add random range to particles initial position
-
-Done
-- Finish base Particles 
-
+Optional:
+- Particle
+  - Add random range to particles initial position
+  - Add hue shift
+  - Have the particle's glow alpha attribute affect the glow's alpha when used in a 
+    particle. At the moment, it's determined by the particles alpha value
+  - Caching:
+      - Add Angle initial value and angle_change, to have a constant angle change 
+      frame
+      - Cache angle image
+      - Add glow
+          - Bliting is faster then drawing a circle, so I should blit an image.
+          But to blit, the scale must be right, so I'd need to transform the surface 
+          (image). Therefore, This will require caching.
 
 --------------------------------------------------------------------------------
+Give particle new attribute for the glow's special flag
 
 for x and y axis -> flip and offset
 Give attributes rect and vel to Entity

@@ -9,8 +9,9 @@ from data.scripts.entity import *
 from data.scripts.font_functions import *
 from data.scripts.button import *
 from data.scripts.particle_generator import *
+from data.scripts.glow import *
 from data.scripts.debug import *
-
+ 
 # Initialize ----------------------------------------------------------------- #
 pygame.display.set_caption('Obama Hacking 101')
 clock = pygame.time.Clock()
@@ -22,8 +23,11 @@ player = Entity([100, 100], 'dark_player', offset=[9, 0], max_vel=2)
 text = '''the quick brown fox jumps over the lazy dog?
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!'''
 text = ''
-
-particle_generator = ParticleGenerator(1, 1, 1, [1, 2], [0, 0], [0, -9], 0, player.frame_data['img'], 255, 10, 0.05)
+g = Glow([(255, 200, 100), (255, 100, 0), (255, 0, 0)], [3, 6, 9], [255, 255, 255])
+img = pygame.image.load('data/img/particles/andre.png')
+#                    ParticleGenerator(rate, rate_randomness, random_change, vel_randomness, pos, vel, friction, initial_img, alpha, changed_alpha, changed_size, glow)
+particle_generator = ParticleGenerator(7, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, img, 255, 2, 0.01, g)
+particle_generator = ParticleGenerator(2, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, None, 50, 1, 0.01, g)
 
 mouse_down = False
 right_down = False
@@ -67,6 +71,8 @@ while run:
 
     # Render ----------------------------------------------------------------- #
     canvas.fill((190, 200, 200))
+    canvas.fill((100, 100, 100))
+    canvas.fill((50, 50, 50))
     
     render_wrapped_text(canvas, (mx + 10, my), text, font_database['basic'], (20, 20, 20))
     
@@ -83,8 +89,8 @@ while run:
     player.update()
     
     particle_generator.pos = [mx, my]
-    particle_generator.update_and_render(canvas, [0, 1])
-    
+    particle_generator.update_and_render(canvas, [0, 0.05])
+        
     # center_blit([canvas, player.frame_data['img']])
     player.render(canvas)
     button.update(mx, my, mouse_down, clicked)
@@ -97,6 +103,7 @@ while run:
 {player.vel = }
 {player.pos = }
 {player.flip = }
+{len(particle_generator.particles) = }
 '''
     render_variables(screen, debug_text)    
 
