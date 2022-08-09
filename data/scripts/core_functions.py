@@ -1,5 +1,6 @@
 import json
 import pygame
+from math import atan, pi
 
 def open_txt(path):
     with open(path, 'r') as f:
@@ -41,3 +42,10 @@ def center_blit(coordinates:list, dest: pygame.Surface=None) -> None:
             coordinates_copy[i] = coordinate.get_size()
             
     dest.blit(coordinates[1], get_center_pos(coordinates_copy))
+    
+def get_angle(vector):
+    angle = atan(vector[1] / vector[0]) * 180 / pi + 90
+    if vector[0] < 0:
+        angle -= 180
+    return angle
+    

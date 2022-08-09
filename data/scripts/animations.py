@@ -3,27 +3,34 @@ from .config import *
 import pygame
 import json
 from os import listdir
+from os.path import isdir
 
-animation_database = {}
+entity_animation_database = {}
+particle_animation_database = {}
 
-def load_animation(entity_folder):
-    global animation_database
+def load_animation(folder, file):
+    data = open_json(f'{folder}/config.json')
+    output = {
+        'sequence': data['sequence'],
+        'imgs': []
+        }    
+    for i, duration in enumerate(data['duration']):
+        print(f'Loading {folder}/{file}_{i}.png')
+        img = pygame.image.load(f'{folder}/{file}_{i}.png').convert()
+        img.set_colorkey(colorkey)                
+        output['imgs'].append({'img': img,
+                    'duration': duration})
+    return output
 
-    entity = entity_folder.split('/')[-1]
-    animation_database[entity] = {}
-    for action in listdir(entity_folder):
-        # Check's if it's a folder
-        if len(action.split('.')) == 1:
-            data = open_json(f'{entity_folder}/{action}/config.json')
-            animation_database[entity][action] = {
-                'sequence': data['sequence'],
-                'imgs': []
-                }
-            imgs = animation_database[entity][action]['imgs']
-            # TODO: Implement sequence control
-            for i, duration in enumerate(data['duration']):
-                print(f'{entity_folder}/{action}/{entity}_{i}.png')
-                img = pygame.image.load(f'{entity_folder}/{action}/{entity}_{i}.png').convert()
-                img.set_colorkey(colorkey)                
-                imgs.append({'img': img,
-                             'duration': duration})
+def load_entity_animation(entity_folder):
+    global entity_animation_database
+
+    if entity_folder not in entity_animation_database:
+        entity = entity_folder.split('/')[-1]
+        entity_animation_database[entity] = {}
+        for action in listdir(entity_folder):
+            if isdir(f'{entity_folder}/{action}'):
+                entity_animation_database[entity][action] = load_animation(f'{entity_folder}/{action}', entity)
+
+def load_particle_animation(particle_folder):
+    pass

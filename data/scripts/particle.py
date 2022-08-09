@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from random import uniform
 from .config import colorkey
-from .core_functions import center_blit
+from .core_functions import center_blit, get_angle
 from .movable_object import *
 from math import atan, pi
 
@@ -62,9 +62,7 @@ class Particle(MovableObject):
             img.set_alpha(self.alpha)
             if self.angle_at_vel:
                 try:
-                    angle = atan(self.vel[1] / self.vel[0]) * 180 / pi + 90
-                    if self.vel[0] < 0:
-                        angle -= 180
+                    angle = get_angle(self.vel)
                     img = pygame.transform.rotate(img, -angle)
                 except ZeroDivisionError:
                     pass

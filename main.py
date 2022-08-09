@@ -24,10 +24,10 @@ text = '''the quick brown fox jumps over the lazy dog?
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!'''
 text = ''
 g = Glow([(255, 200, 100), (255, 100, 0), (255, 0, 0)], [3, 6, 9], [255, 255, 255])
-img = pygame.image.load('data/img/particles/andre.png')
+img = pygame.image.load('data/img/particles/circle.png')
 #                    ParticleGenerator(rate, rate_randomness, random_change, vel_randomness, pos, vel, friction, initial_img, alpha, changed_alpha, changed_size, glow)
-particle_generator = ParticleGenerator(7, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, img, 255, 2, 0.01, g)
-particle_generator = ParticleGenerator(2, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, None, 50, 1, 0.01, g)
+# particle_generator = ParticleGenerator(7, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, img, 255, 2, 0.01, g)
+particle_generator = ParticleGenerator(1, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, None, 50, 1, 0.01, g)
 
 mouse_down = False
 right_down = False

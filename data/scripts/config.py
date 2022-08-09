@@ -7,5 +7,6 @@ SCREEN_SIZE = (CANVAS_SIZE[0]*SCALE, CANVAS_SIZE[1]*SCALE)
 
 colorkey = (0, 0, 0)
 animation_path = 'data/img/animations'
+particle_path = 'data/img/particles'
 font_path = 'data/img/font'
 split_color = (255, 0, 0)

@@ -1,20 +1,24 @@
-NOTE: 
-- Update comment in particle function
+- Create animated partciles and animated particle generator
+- Cache glow
+- Change animation loading (maybe load everything at once or
+load aniamtions from main.py)
 
-Optional:
+Less important:
+- Implement sequence control in entity and particle class (maybe use some similar function
+  because their code will be similar)
+- Create animation class, which is shared to AnimatedParticle and the Entity's animation
 - Particle
+  - Particle and AnimatedParticle have similar code, so they could have inherited
+    to optimize code
   - Add random range to particles initial position
   - Add hue shift
   - Have the particle's glow alpha attribute affect the glow's alpha when used in a 
     particle. At the moment, it's determined by the particles alpha value
+  - Add Angle initial value and angle_change, to have a constant angle change 
+    frame
   - Caching:
-      - Add Angle initial value and angle_change, to have a constant angle change 
-      frame
       - Cache angle image
-      - Add glow
-          - Bliting is faster then drawing a circle, so I should blit an image.
-          But to blit, the scale must be right, so I'd need to transform the surface 
-          (image). Therefore, This will require caching.
+  - Set both particle animation database and entity animation database to be class variables
 
 --------------------------------------------------------------------------------
 Give particle new attribute for the glow's special flag
@@ -26,4 +30,4 @@ Fix globals with font databases
 Capitalize constants
 Implement button class
 
-font_database can only be accessed from the file at which it's created
+font_database can only be accessed from the file at which it's created`

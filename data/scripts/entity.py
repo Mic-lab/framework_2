@@ -1,4 +1,4 @@
-from .animations import *
+from .animations import entity_animation_database, load_entity_animation
 from .core_functions import *
 from .config import *
 from .movable_object import MovableObject
@@ -11,13 +11,13 @@ class Entity(MovableObject):
         self._action = action
         self.action = action
         self.flip = flip
-        load_animation(f'{animation_path}/{self.type}')
+        load_entity_animation(f'{animation_path}/{self.type}')
         self.game_frame = 0
         self.animation_frame = 0
 
     @property
     def frame_data(self):
-        return animation_database[self.type][self.action]['imgs'][int(self.animation_frame)]
+        return entity_animation_database[self.type][self.action]['imgs'][int(self.animation_frame)]
     
     @property
     def action(self):
@@ -41,7 +41,7 @@ class Entity(MovableObject):
                     self.pos[axis] += self.offset[axis]
                 
     def update(self):
-        
+
         # Mouvement ---------------------------------------------------------- #
         super().update()
         
@@ -50,7 +50,7 @@ class Entity(MovableObject):
         if self.game_frame > self.frame_data['duration']:
             self.game_frame = 0
             self.animation_frame += 1
-            if self.animation_frame >= len(animation_database[self.type][self.action]['imgs']):
+            if self.animation_frame >= len(entity_animation_database[self.type][self.action]['imgs']):
                 self.animation_frame = 0
 
     def render(self, surf):
