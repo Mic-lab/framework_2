@@ -2,33 +2,23 @@ from .animations import entity_animation_database, load_entity_animation
 from .core_functions import *
 from .config import *
 from .movable_object import MovableObject
+from .animation_manager import AnimationManager
 
 class Entity(MovableObject):
+
     def __init__(self, pos, type_, offset=[0, 0], friction=0.06, vel=[0, 0], max_vel=None, action='idle', flip=[False, False]):
         super().__init__(pos, vel, friction, max_vel)
+        load_entity_animation(f'{animation_path}/{type_}')        
         self.type = type_
         self.offset = offset
-        self._action = action
-        self.action = action
+        self.set_action(action, True)
         self.flip = flip
-        load_entity_animation(f'{animation_path}/{self.type}')
-        self.game_frame = 0
-        self.animation_frame = 0
 
-    @property
-    def frame_data(self):
-        return entity_animation_database[self.type][self.action]['imgs'][int(self.animation_frame)]
-    
-    @property
-    def action(self):
-        return self._action
-    
-    @action.setter
-    def action(self, new_action):
-        if new_action != self.action:
-            self._action = new_action
-            self.game_frame = 0
-            self.animation_frame = 0
+    # TODO: Add setter for when type changes
+    def set_action(self, new_action, force_changes=False):            
+        if force_changes or new_action != self.action:
+            self.action = new_action
+            self.animation_manager = AnimationManager(entity_animation_database[self.type][new_action])
     
     def set_flip(self, new_flip):
         for axis in range(len(new_flip)):
@@ -46,12 +36,7 @@ class Entity(MovableObject):
         super().update()
         
         # Animation ---------------------------------------------------------- #
-        self.game_frame += 1
-        if self.game_frame > self.frame_data['duration']:
-            self.game_frame = 0
-            self.animation_frame += 1
-            if self.animation_frame >= len(entity_animation_database[self.type][self.action]['imgs']):
-                self.animation_frame = 0
+        self.animation_manager.update()
 
     def render(self, surf):
-        surf.blit(pygame.transform.flip(self.frame_data['img'], self.flip[0], self.flip[1]), self.pos)
+        surf.blit(pygame.transform.flip(self.animation_manager.img, self.flip[0], self.flip[1]), self.pos)

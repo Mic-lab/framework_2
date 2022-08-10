@@ -8,7 +8,9 @@ from os.path import isdir
 entity_animation_database = {}
 particle_animation_database = {}
 
-def load_animation(folder, file):
+def load_particle_animation(folder, file):
+    global particle_animation_database
+    
     data = open_json(f'{folder}/config.json')
     output = {
         'sequence': data['sequence'],

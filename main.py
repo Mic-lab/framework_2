@@ -79,13 +79,13 @@ while run:
     if right_down:
         player.vel[0] += 0.1
         player.set_flip([False, False])
-        player.action = 'walk'
+        player.set_action('walk')
     if left_down:
         player.vel[0] -= 0.1
         player.set_flip([True, False])
-        player.action = 'walk'
+        player.set_action('walk')
     if not(right_down) and not(left_down):
-        player.action = 'idle'
+        player.set_action('idle')
     player.update()
     
     particle_generator.pos = [mx, my]
