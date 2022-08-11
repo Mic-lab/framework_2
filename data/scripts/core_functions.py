@@ -1,6 +1,12 @@
 import json
 import pygame
 from math import atan, pi
+from .config import colorkey
+
+def load_img(path):
+    img = pygame.image.load(path).convert()
+    img.set_colorkey(colorkey)
+    return img
 
 def open_txt(path):
     with open(path, 'r') as f:
@@ -11,11 +17,11 @@ def open_json(path):
     data = open_txt(path)
     return json.loads(data)
 
-def swap_colors(surface, color_1, color_2):
+def swap_colors(surface, old_color, new_color):
     surface_copy = surface.copy()
     output_surface = surface.copy()
-    output_surface.fill(color_2)
-    surface_copy.set_colorkey(color_1)
+    output_surface.fill(new_color)
+    surface_copy.set_colorkey(old_color)
     output_surface.blit(surface_copy, (0, 0))
     return output_surface
 

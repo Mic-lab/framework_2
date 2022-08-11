@@ -67,7 +67,6 @@ class Particle(MovableObject):
                 except ZeroDivisionError:
                     pass
                 angle = 90
-                print(angle, self.vel)
             img = pygame.transform.scale(img, (img.get_width() * self.size, img.get_height() * self.size))
             return img
         

@@ -1,10 +1,13 @@
+from random import randint
+
 class AnimationManager:
     
-    def __init__(self, animation, animation_frame=0, game_frame=0):
+    def __init__(self, animation, randomize_duration=False, animation_frame=0, game_frame=0):
+        print(randomize_duration)
+        self.randomize_duration = randomize_duration
         self._animation = animation
-        self.animation_frame = animation_frame
-        self.game_frame = game_frame
-        
+        self.animation = animation
+            
     def update(self):
         self.game_frame += 1
         if self.game_frame > self.animation_data['duration']:
@@ -24,7 +27,12 @@ class AnimationManager:
     @animation.setter
     def animation(self, new_animation):
         self._animation = new_animation
-        self.animation_frame = 0
+        if self.randomize_duration:
+            self.animation_frame = randint(0, len(self.animation['imgs']) - 1)
+            print(self.animation_frame)
+
+        else:
+            self.animation_frame = 0
         self.game_frame = 0
     
     @property

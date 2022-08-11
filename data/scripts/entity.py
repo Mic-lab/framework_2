@@ -14,6 +14,15 @@ class Entity(MovableObject):
         self.set_action(action, True)
         self.flip = flip
 
+    @property
+    def img_pos(self):
+        output = self.pos.copy()
+        if self.flip[0]:
+            output[0] -= self.offset[0]
+        if self.flip[1]:
+            output[1] -= self.offset[1]
+        return output
+
     # TODO: Add setter for when type changes
     def set_action(self, new_action, force_changes=False):            
         if force_changes or new_action != self.action:
@@ -24,11 +33,11 @@ class Entity(MovableObject):
         for axis in range(len(new_flip)):
             if new_flip[axis] != self.flip[axis]:
                 self.flip[axis] = new_flip[axis]
-                if self.flip[axis]:
-                    self.pos[axis] -= self.offset[axis]
-                else:
+                # if self.flip[axis]:
+                #     self.pos[axis] -= self.offset[axis]
+                # else:
                     
-                    self.pos[axis] += self.offset[axis]
+                #     self.pos[axis] += self.offset[axis]
                 
     def update(self):
 
@@ -39,4 +48,4 @@ class Entity(MovableObject):
         self.animation_manager.update()
 
     def render(self, surf):
-        surf.blit(pygame.transform.flip(self.animation_manager.img, self.flip[0], self.flip[1]), self.pos)
+        surf.blit(pygame.transform.flip(self.animation_manager.img, self.flip[0], self.flip[1]), self.img_pos)

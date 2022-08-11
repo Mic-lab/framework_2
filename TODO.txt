@@ -1,12 +1,10 @@
-- Create animated partciles and animated particle generator
-- Cache glow
-- Change animation loading (maybe load everything at once or
-load aniamtions from main.py)
 
 Less important:
 - Implement sequence control in entity and particle class (maybe use some similar function
   because their code will be similar)
-- Create animation class, which is shared to AnimatedParticle and the Entity's animation
+- Cache glow
+- Change animation loading (maybe load everything at once or
+load aniamtions from main.py)
 - Particle
   - Particle and AnimatedParticle have similar code, so they could have inherited
     to optimize code
@@ -19,7 +17,8 @@ Less important:
   - Caching:
       - Cache angle image
   - Set both particle animation database and entity animation database to be class variables
-
+  - In particle generator (and AnimatedParticleGenerator), the update method is almost identical to update_and_render method.
+    So instead I can give update_and_render an argument that determines if I render or not
 --------------------------------------------------------------------------------
 Give particle new attribute for the glow's special flag
 
