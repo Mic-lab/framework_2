@@ -5,9 +5,12 @@ Less important:
 - Cache glow
 - Change animation loading (maybe load everything at once or
 load aniamtions from main.py)
+- Give hitbox attribute for entity
 - Particle
   - Particle and AnimatedParticle have similar code, so they could have inherited
     to optimize code
+  - Add method for creating particles (that way you can create particles outside
+  of update function)
   - Add random range to particles initial position
   - Add hue shift
   - Have the particle's glow alpha attribute affect the glow's alpha when used in a 

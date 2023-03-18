@@ -22,6 +22,13 @@ class Entity(MovableObject):
         if self.flip[1]:
             output[1] -= self.offset[1]
         return output
+    
+    @property
+    def rect(self):
+        rect = self.animation_manager.rect
+        rect.x = self.pos[0] + self.animation_manager.img.get_width() - rect.width - self.offset[0]
+        rect.y = self.pos[1] + self.animation_manager.img.get_height() - rect.height - self.offset[1]
+        return rect
 
     # TODO: Add setter for when type changes
     def set_action(self, new_action, force_changes=False):            
@@ -33,11 +40,6 @@ class Entity(MovableObject):
         for axis in range(len(new_flip)):
             if new_flip[axis] != self.flip[axis]:
                 self.flip[axis] = new_flip[axis]
-                # if self.flip[axis]:
-                #     self.pos[axis] -= self.offset[axis]
-                # else:
-                    
-                #     self.pos[axis] += self.offset[axis]
                 
     def update(self):
 

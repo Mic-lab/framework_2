@@ -32,6 +32,8 @@ particle_generator = ParticleGenerator(1, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, No
 
 # particle = AnimatedParticle([10, 10], [0, 0], 0, 'circle')
 animated_particle_generator = AnimatedParticleGenerator(1, 0, [1, 0], [50, 50], [0, 0], 0, 'circle', (200, 200, 255), randomize_particle_duration=False)
+# AnimatedParticle(pos, vel, friction, type_, rgb, randomize_duration)
+
 
 mouse_down = False
 right_down = False

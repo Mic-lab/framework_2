@@ -42,3 +42,7 @@ class AnimationManager:
     @property
     def img(self):
         return self.animation_data['img']
+    
+    @property
+    def rect(self):
+        return self.img.get_bounding_rect()
