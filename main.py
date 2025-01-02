@@ -26,14 +26,14 @@ text = '''the quick brown fox jumps over the lazy dog?
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!'''
 text = ''
 g = Glow([(255, 200, 100), (255, 100, 0), (255, 0, 0)], [3, 6, 9], [255, 255, 255])
+
 img = pygame.image.load('data/img/particles/circle.png')
-#                    ParticleGenerator(rate, rate_randomness, random_change, vel_randomness, pos, vel, friction, initial_img, alpha, changed_alpha, changed_size, glow)
-particle_generator = ParticleGenerator(1, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, None, 50, 1, 0.01, g)
+particle_generator = ParticleGenerator(20, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, img, 50, 1, 0.01, None)
 
-# particle = AnimatedParticle([10, 10], [0, 0], 0, 'circle')
+img = pygame.image.load('data/img/particles/andre.png')
+particle_generator = ParticleGenerator(20, 0, 0, [0.3, 1], [1, 1], [0, -2], 0, None, 50, 1, 0.01, g)
+
 animated_particle_generator = AnimatedParticleGenerator(1, 0, [1, 0], [50, 50], [0, 0], 0, 'circle', (200, 200, 255), randomize_particle_duration=False)
-# AnimatedParticle(pos, vel, friction, type_, rgb, randomize_duration)
-
 
 mouse_down = False
 right_down = False
@@ -77,7 +77,7 @@ while run:
 
     # Render ----------------------------------------------------------------- #
     canvas.fill((190, 200, 200))
-    # canvas.fill((50, 50, 50))
+    canvas.fill((100, 100, 100))
     
     render_wrapped_text(canvas, (mx + 10, my), text, font_database['basic'], (20, 20, 20))
     
@@ -110,13 +110,14 @@ while run:
 {player.vel = }
 {player.pos = }
 {player.flip = }
+{len(particle_generator.particles) = }
 '''
     render_variables(screen, debug_text)    
 
     # Update ----------------------------------------------------------------- #
     pygame.display.update()
     clock.tick(FPS)
-    # print(particle_animation_database)
+##    print(particle_animation_database)
 
 pygame.quit()
 sys.exit()
